@@ -1,19 +1,21 @@
-import React, { useContext } from 'react';
-import { AppContext } from '../AppContext';
-import Canvas from '../components/Canvas';
-import { useRouter } from 'next/router';
+"use client";
 
-const CustomizePage: React.FC = () => {
+import React, { useContext } from 'react';
+import { useAppState } from '@/AppContext';
+import Canvas from '../../components/Canvas';
+import { useRouter } from 'next/navigation';
+
+function Customize() {
+    const { state , setValue} = useAppState();
+
   const {
     topText,
     bottomText,
     shoes,
-    colorOfTheDayHex,
-    taken,
-    submitted,
+    colorOfTheDay,
+
     stlUrl,
-    setValue
-  } = useContext(AppContext);
+  } = state;
   const router = useRouter();
 
   // if state == 'submitted' | 'printed' | 'taken': router.push('/' + state)
@@ -60,12 +62,12 @@ const CustomizePage: React.FC = () => {
         <button onClick={editInfo}>Edit Team Info</button>
         <p>NOTE: More than 6 characters per row will be unreadable!</p>
         <p>
-          Color of the Day: <span style={{ background: colorOfTheDayHex }}>{colorOfTheDayHex}</span>
+          Color of the Day: <span style={{ background: colorOfTheDay }}>{colorOfTheDay}</span>
         </p>
-        <Canvas stlUrl={stlUrl} color={colorOfTheDayHex} />
+        {/* <Canvas stlUrl={stlUrl} color={colorOfTheDay} /> */}
       </div>
     </div>
   );
 };
 
-export default CustomizePage;
+export default Customize;

@@ -8,13 +8,9 @@ import {Button, Input} from "@nextui-org/react";
 function InfoPage() {
   // const { team, phone, taken, submitted, setValue } = useContext(AppContext);
   const { state , setValue} = useAppState();
-
-  const {team, taken, submitted, phone } = state;
+  const {team, currentState, phone } = state;
   
   const router = useRouter();
-
-
-
   
   const next = () => {
 
@@ -30,9 +26,9 @@ function InfoPage() {
             res = '';
           } else {
             setValue('phone', res);//sanatized phone number is returned
-            if (taken) {
+            if (currentState == 'taken') {
                 router.push('/user/taken');
-            } else if (submitted) { //when you're gonna add a phone number
+            } else if (currentState == 'submitted') { //when you're gonna add a phone number
                 router.push('/user/waiting');
             } else {
                 router.push('/user/customize');
@@ -40,8 +36,6 @@ function InfoPage() {
           }
         });
       }
-    
-    
   };
 
   return (
@@ -58,12 +52,10 @@ function InfoPage() {
         </div>
         <div>
           <label>(optional) Phone Number to be notified when the print is done (SMS charges may apply):</label>
-          
           <Input type="text"
             value={phone}
             onChange={(e) => {setValue('phone', e.target.value)}}
           />
-
             
         </div>
         <Button onClick={next}>Next</Button>

@@ -3,24 +3,24 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 
 interface AppState {
-  state: string;
+  // state: string;
   team: string;
-  status: string;
+  // status: string;
   stlUrl: string;
   phone: string;
-  printed: boolean;
-  taken: boolean;
+  // printed: boolean;
+  // taken: boolean;
   colorOfTheDay: string;
-  colorOfTheDayHex: string;
+  // colorOfTheDayHex: string;
   topText: string;
   bottomText: string;
   shoes: boolean;
-  generated: boolean;
-  submitted: boolean;
-  expired: boolean;
-  haveAlertedForPrintDone: boolean;
+  // generated: boolean;
+  // submitted: boolean;
+  // expired: boolean;
+  // haveAlertedForPrintDone: boolean;
   queueSpotsLeft: string;
-  currentState: 'notLoggedInYet' | 'loggedIn' | 'generating' | 'generated' | 'submitted' | 'printed' | 'taken';
+  currentState: 'notLoggedInYet' | 'loggedIn' | 'generating' | 'generated' | 'submitted' | 'printed' | 'taken' | 'expired';
 }
 
 interface AppContextValue extends AppState {
@@ -28,22 +28,21 @@ interface AppContextValue extends AppState {
 }
 
 const initialState: AppState = {
-  state: 'loading',
+  // state: 'loading',
   team: '',
-  status: '',
+  // status: '',
   stlUrl: '',
   phone: '',
-  printed: false,
-  taken: false,
+  // printed: false,
+  // taken: false,
   colorOfTheDay: '',
-  colorOfTheDayHex: '',
+  // colorOfTheDayHex: '',
   topText: '',
   bottomText: '',
   shoes: false,
-  generated: false,
-  submitted: false,
-  expired: false,
-  haveAlertedForPrintDone: false,
+  // generated: false,
+  // submitted: false,
+  // expired: false,
   queueSpotsLeft: 'Loading...',
   currentState: 'notLoggedInYet',
 };

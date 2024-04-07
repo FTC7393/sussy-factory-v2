@@ -5,6 +5,8 @@ import { AppContext } from "../AppContext";
 
 export function Review() {
 
+    const { state , setValue} = useAppState();
+
     const {
 
         colorOfTheDay,
