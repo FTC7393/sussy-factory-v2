@@ -4,6 +4,7 @@ import React, { useContext } from 'react';
 import { useAppState } from '@/AppContext';
 import Canvas from '../../components/Canvas';
 import { useRouter } from 'next/navigation';
+import { Button, Checkbox, Input } from '@nextui-org/react';
 
 function Customize() {
     const { state , setValue} = useAppState();
@@ -30,11 +31,11 @@ function Customize() {
 
   return (
     <div className="flex flex-col sm:flex-row m-0 min-h-screen" style={{ backgroundImage: 'url(/img/background.png)', backgroundSize: 'cover 100%', backgroundRepeat: 'repeat-x' }}>
-      <div className="mx-auto">
+      <div className="flex flex-col mx-auto space-y-2">
         <h2>Customize Figurine</h2>
         <div>
           <label>Top Text:</label>
-          <input
+          <Input
             type="text"
             value={topText}
             onChange={(e) => setValue('topText', e.target.value)}
@@ -42,7 +43,7 @@ function Customize() {
         </div>
         <div>
           <label>Bottom Text (optional):</label>
-          <input
+          <Input
             type="text"
             value={bottomText}
             onChange={(e) => setValue('bottomText', e.target.value)}
@@ -50,7 +51,7 @@ function Customize() {
         </div>
         <div>
           <label>
-            <input
+            <Checkbox
               type="checkbox"
               checked={shoes}
               onChange={(e) => setValue('shoes', e.target.checked)}
@@ -58,8 +59,11 @@ function Customize() {
             Drip Shoes?
           </label>
         </div>
-        <button onClick={generate}>Generate Preview</button>
-        <button onClick={editInfo}>Edit Team Info</button>
+        <div className="flex flex-row justify-center space-x-2">
+          <Button onClick={generate}>Generate Preview</Button>
+        <Button onClick={editInfo}>Edit Team Info</Button>
+        </div>
+        
         <p>NOTE: More than 6 characters per row will be unreadable!</p>
         <p>
           Color of the Day: <span style={{ background: colorOfTheDay }}>{colorOfTheDay}</span>
