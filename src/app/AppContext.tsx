@@ -1,4 +1,6 @@
-import React, { createContext, useState } from 'react';
+"use client";
+
+import React, { createContext, useCallback, useContext, useState } from 'react';
 
 interface AppState {
   state: string;
@@ -18,6 +20,7 @@ interface AppState {
   expired: boolean;
   haveAlertedForPrintDone: boolean;
   queueSpotsLeft: string;
+  currentState: 'notLoggedInYet' | 'loggedIn' | 'generating' | 'generated' | 'submitted' | 'printed' | 'taken';
 }
 
 interface AppContextValue extends AppState {
@@ -42,27 +45,32 @@ const initialState: AppState = {
   expired: false,
   haveAlertedForPrintDone: false,
   queueSpotsLeft: 'Loading...',
+  currentState: 'notLoggedInYet',
 };
 
-export const AppContext = createContext<AppContextValue>({
-  ...initialState,
-  setValue: () => {},
-});
+const AppContext = createContext<AppState | any>(initialState);
 
-export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const useAppState = () => {
   const [state, setState] = useState<AppState>(initialState);
 
-  const setValue = (key: keyof AppState, value: any) => {
-    setState((prevState) => ({
-      ...prevState,
-      [key]: value,
-    }));
-  };
+  const setValue = useCallback(
+    (key: keyof AppState, value: any) => {
+      console.log('setting value', key, value);
+      setState((prevState) => ({
+        ...prevState,
+        [key]: value,
+      }));
+    },
+    [setState]
+  );
 
-  const value = {
-    ...state,
-    setValue,
-  };
-
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+  return { state, setValue };
 };
+
+export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { state, setValue } = useAppState();
+
+  return <AppContext.Provider value={{ ...state, setValue }}>{children}</AppContext.Provider>;
+};
+
+export const useAppContext = () => useContext(AppContext);
